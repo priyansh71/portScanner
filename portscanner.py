@@ -5,13 +5,13 @@ import time
 
 start = time.time()
 print("\n")
-print(Fore.CYAN+ Style.BRIGHT +  "PortScanner started." + Fore.RESET)
+print(Fore.CYAN+ Style.BRIGHT +  "Scanning started." + Fore.RESET)
 
-parser = argparse.ArgumentParser( description = "Customized Port Scanner made using Sockets. Uses a single address at a time.",
+parser = argparse.ArgumentParser( description = "Port Scanner made using Sockets,it uses a single IP address at a time.",
 epilog="Made by Priyansh.")
 
-parser.add_argument("-ip", help="I.P. address of victim.")
-parser.add_argument("-pA" , help="Inakes a random amount of ports, separated by spaces.", nargs="+", type=int)
+parser.add_argument("-ip", help="I.P. address of victim.", required=True)
+parser.add_argument("-pA" , help="Intakes a random amount of ports, separated by spaces.", nargs="+", type=int)
 parser.add_argument("-pR", help="Intakes two ports separated by spaces which are used as the bounds of scanning. (Both inclusive)", type=int, nargs="+")
 parser.add_argument("-proto", default="tcp" , help="Protocol of service of the port. Default is tcp.", type=str)
 parser.add_argument("-op" , help="Returns a list of open ports and nothing if no ports are open. Use with either -pA or -pR.", action="store_true")
