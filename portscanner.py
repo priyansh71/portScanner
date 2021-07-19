@@ -7,7 +7,7 @@ start = time.time()
 print("\n")
 print(Fore.CYAN+ Style.BRIGHT +  "Scanning started." + Fore.RESET)
 
-parser = argparse.ArgumentParser( description = "Port Scanner made using Sockets,it uses a single IP address at a time.",
+parser = argparse.ArgumentParser( description = "Port Scanner made using sockets, it uses a single IP address at a time.",
 epilog="Made by Priyansh.")
 
 parser.add_argument("-ip", help="I.P. address of victim.", required=True)
@@ -38,14 +38,14 @@ if host:
 
         try:
             serviceName = socket.getservbyport(port, protocol);
-            print("Service at %d : %s"%(port, serviceName));
+            print("Service running at %d : %s"%(port, serviceName));
         except:
-            print(Fore.RED + "Protocol not found.")
+            print(Fore.RED + "Protocol not found." + Fore.RESET)
 
     def portRange(array):
         for port in range(array[0],array[1] +1):
             if scan(host, port):
-                print("Port", port, "is open.")
+                print(Fore.GREEN + "Port", port, "is open." + Fore.RESET)
             else:
                 print("Port",port, "is closed.")
             service(port, protocol)
@@ -53,13 +53,13 @@ if host:
     def openRange(array):
         for port in range(array[0],array[1] +1):
             if scan(host, port):
-                print("Port", port, "is open.")
+                print(Fore.GREEN + "Port", port, "is open." + Fore.RESET)
                 service(port, protocol)
 
     def portArray(array):
         for port in array:
             if scan(host, port):
-                print("Port", port, "is open.")
+                print(Fore.GREEN + "Port", port, "is open." + Fore.RESET)
             else:
                 print("Port", port, "is closed.")
             service(port, protocol)
@@ -67,7 +67,7 @@ if host:
     def openArray(array):
         for port in array:
             if scan(host, port):
-                print("Port" , port, "is open.")
+                print(Fore.GREEN + "Port", port, "is open." + Fore.RESET)
                 service(port, protocol)
 
     if portsArray:
