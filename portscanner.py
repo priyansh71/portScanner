@@ -1,25 +1,21 @@
 import socket
 import argparse
-parser = argparse.ArgumentParser( description = "Customized Port Scanner made using Sockets.\n"
-"Uses a single address at a time.",
+parser = argparse.ArgumentParser( description = "Customized Port Scanner made using Sockets. Uses a single address at a time.",
 epilog="Made by Priyansh.")
 
-parser.add_argument("-pl", help="Lower limit of port scanning. Can also use this if a single port is to be checked.", type=int)
-parser.add_argument("-ph", help="Upper limit of port scanning. Ignore if a single port is to be checked.", type=int)
-parser.add_argument("-ip", help="I.P. address array of victim.", required=True, nargs="+")
+parser.add_argument("-pR", help="Takes two integers separated by spaces which are used as the bounds of port scanning. (Both inclusive)", type=int, nargs="+")
+parser.add_argument("-ip", help="I.P. address array of victim.", required=True)
 parser.add_argument("-proto", default="tcp" , help="Protocol of service of the port. Default is tcp.", type=str)
-parser.add_argument("-pArr" , help="A random list of ports, separated by spaces.", nargs="+", type=int)
+parser.add_argument("-pA" , help="Takes a random list of ports, separated by spaces.", nargs="+", type=int)
+parser.add_argument("-op" , help="Returns the open ports. Use with either -pA or -pR", action="store_true")
 
 args = parser.parse_args()
 
 host = args.ip
-l = args.pl
-h = args.ph
+portsRange = args.pR
 protocol = args.proto
-portlist = args.pArr
-
-if h == None:
-    h = l;
+portsArray = args.pA
+open = args.op
 
 def scan(host, port):
     s = socket.socket()
@@ -39,15 +35,22 @@ def service(port, protocol):
         print("Protocol not found.")
 
 
-def lowhigh(a,b):
-    for port in range(a,b +1):
+def portRange(array):
+    for port in range(array[0],array[1] +1):
         if scan(host, port):
             print(port, "is open.")
         else:
             print(port, "is closed.")
         service(port, protocol)
 
-def portarray(array):
+def openRange(array):
+    for port in range(array[0],array[1] +1):
+        if scan(host, port):
+            print(port, "is open.")
+            service(port, protocol)
+
+
+def portArray(array):
     for port in array:
         if scan(host, port):
             print(port, "is open.")
@@ -55,13 +58,18 @@ def portarray(array):
             print(port, "is closed.")
         service(port, protocol)
 
-if l == None:
+def openArray(array):
+    for port in array:
+        if scan(host, port):
+            print(port, "is open.")
+            service(port, protocol)
+
+
+if portsArray:
     print("\n")
     print("Using specified array of ports...")
-    portarray(portlist)
+    openArray(portsArray) if open else portArray(portsArray)
+elif portsRange:
     print("\n")
-else:
-    print("\n")
-    print("Using range of ports..")
-    lowhigh(l,h)
-    print("\n")
+    print("Using limiting range of ports..")
+    openRange(portsRange) if open else portRange(portsRange)
