@@ -24,60 +24,59 @@ protocol = args.proto
 portsArray = args.pA
 open = args.op
 
-if host:
-    def scan(host, port):
-        s = socket.socket()
-        try:
-            s.connect((host, port))
-        except:
-            return False
+def scan(host, port):
+    s = socket.socket()
+    s.settimeout(0.13)
+    try:
+        s.connect((host, port))
+        return True
+    except:
+        return False
+
+def service(port, protocol):
+
+    try:
+        serviceName = socket.getservbyport(port, protocol);
+        print("Service running at %d : %s"%(port, serviceName));
+    except:
+        print(Fore.RED + "Protocol not found." + Fore.RESET)
+
+def portRange(array):
+    for port in range(array[0],array[1] +1):
+        if scan(host, port):
+            print(Fore.GREEN + "Port", port, "is open." + Fore.RESET)
         else:
-            return True
+            print("Port",port, "is closed.")
+        service(port, protocol)
 
-    def service(port, protocol):
-
-        try:
-            serviceName = socket.getservbyport(port, protocol);
-            print("Service running at %d : %s"%(port, serviceName));
-        except:
-            print(Fore.RED + "Protocol not found." + Fore.RESET)
-
-    def portRange(array):
-        for port in range(array[0],array[1] +1):
-            if scan(host, port):
-                print(Fore.GREEN + "Port", port, "is open." + Fore.RESET)
-            else:
-                print("Port",port, "is closed.")
+def openRange(array):
+    for port in range(array[0],array[1] +1):
+        if scan(host, port):
+            print(Fore.GREEN + "Port", port, "is open." + Fore.RESET)
             service(port, protocol)
 
-    def openRange(array):
-        for port in range(array[0],array[1] +1):
-            if scan(host, port):
-                print(Fore.GREEN + "Port", port, "is open." + Fore.RESET)
-                service(port, protocol)
+def portArray(array):
+    for port in array:
+        if scan(host, port):
+            print(Fore.GREEN + "Port", port, "is open." + Fore.RESET)
+        else:
+            print("Port", port, "is closed.")
+        service(port, protocol)
 
-    def portArray(array):
-        for port in array:
-            if scan(host, port):
-                print(Fore.GREEN + "Port", port, "is open." + Fore.RESET)
-            else:
-                print("Port", port, "is closed.")
+def openArray(array):
+    for port in array:
+        if scan(host, port):
+            print(Fore.GREEN + "Port", port, "is open." + Fore.RESET)
             service(port, protocol)
 
-    def openArray(array):
-        for port in array:
-            if scan(host, port):
-                print(Fore.GREEN + "Port", port, "is open." + Fore.RESET)
-                service(port, protocol)
-
-    if portsArray:
-        openArray(portsArray) if open else portArray(portsArray)
-    elif portsRange:
-        try:
-            openRange(portsRange) if open else portRange(portsRange)
-        except:
-            print(Fore.RED + "Please provide valid arguments.")
-    end = time.time()
+if portsArray:
+    openArray(portsArray) if open else portArray(portsArray)
+elif portsRange:
+    try:
+        openRange(portsRange) if open else portRange(portsRange)
+    except:
+        print(Fore.RED + "Please provide valid arguments.")
+end = time.time()
 
 print(Style.BRIGHT + Fore.CYAN + "Execution completed in", round(end-start , 3), "seconds.")
 print("\n")
