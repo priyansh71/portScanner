@@ -1,10 +1,12 @@
 ## Customized Port scanner using sockets.
 
-To run do,
-```python3 portscanner.py -flag```
+To run the file,
+```python3 scannerExt.py -flagExt``` (more featured, but slow)
+```python3 scanner.py -flag``` (less featured, but faster)
 
-where available
-flag = ```-ip -pR -pA -op -proto```
+where:
+  flagExt = ```-ip -pR -pA -op -proto```
+  flag = ```-ip -pR -op```
 
 For help, do
-```python3 portscanner.py -h```
+```python3 [filename] -h```
