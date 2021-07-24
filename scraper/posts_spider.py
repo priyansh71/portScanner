@@ -11,11 +11,15 @@ class PostsSpider(scrapy.Spider):
         for post in response.css('article'):
             try:
                 heading = post.css('h2 a::text')[0].get()
-                summary = post.css('.entry-content p::text')[0].get()
-                link = 'https://youtube.com/watch?v=' +  post.css('iframe').attrib['src'].split('/')[4].split('?')[0]
             except:
                 heading = None
+            try:
+                summary = post.css('.entry-content p::text')[0].get()
+            except:
                 summary = None
+            try:
+                link = 'https://youtube.com/watch?v=' +  post.css('iframe').attrib['src'].split('/')[4].split('?')[0]
+            except:
                 link = None
             yield{
                 'heading' : heading,
