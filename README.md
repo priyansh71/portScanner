@@ -1,1 +1,3 @@
-#### Scripts from the QSTP-Cybersecurity Course, BPGC-2021.
+#### Practice work from the qstp-Cybersecurity Course, BPGC-2021.
+
+&copy;	Priyansh Vyas, 2021.
