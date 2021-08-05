@@ -67,11 +67,14 @@ script2 = "<script>alert('Vulnerable to xss.');</script>"
 driver.get(url4)
 print("Initial title: " + driver.title)
 driver.find_element_by_xpath(inputbox).send_keys(script1)
+sleep(1)
 driver.find_element_by_xpath(button).click()
 print("Final title: " + driver.title)
+print()
 sleep(2)
 
 driver.find_element_by_xpath(inputbox).send_keys(script2)
+sleep(1)
 driver.find_element_by_xpath(button).click()
 sleep(2)
 
