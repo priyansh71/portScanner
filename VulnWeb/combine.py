@@ -63,6 +63,7 @@ inputbox = '//*[@id="search"]/form/input[1]'
 button = '//*[@id="search"]/form/input[2]'
 script1 = "<script>document.title = 'Title changed using Selenium.';</script>"
 script2 = "<script>alert('Vulnerable to xss.');</script>"
+script3 = "<script>document.bgColor = 'lightblue'</script>"
 
 driver.get(url4)
 print("Initial title: " + driver.title)
@@ -72,6 +73,11 @@ driver.find_element_by_xpath(button).click()
 print("Final title: " + driver.title)
 print()
 sleep(2)
+
+driver.find_element_by_xpath(inputbox).send_keys(script3)
+sleep(1)
+driver.find_element_by_xpath(button).click()
+sleep(1)
 
 driver.find_element_by_xpath(inputbox).send_keys(script2)
 sleep(1)
