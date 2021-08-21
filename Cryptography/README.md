@@ -1,1 +1,1 @@
-This directrory contains solutions of some challenges from [Cryptopals.](https://cryptopals.com/sets/1)
+This directrory contains solutions of some cryptographical and mathematical problems using Python.

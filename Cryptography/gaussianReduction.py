@@ -24,4 +24,5 @@ while m:
     if m == 0:
         break
         
-print(dot(V1,V2))
+print(V1)
+print(V2)
